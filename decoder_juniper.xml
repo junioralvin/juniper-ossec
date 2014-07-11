@@ -1,0 +1,47 @@
+ <!-- JUNIPER -->
+ 
+ <decoder name="mgd">
+  <program_name>mgd</program_name>
+</decoder>
+
+<decoder name="mgd-login-event">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^UI_LOGIN_EVENT: </prematch>
+  <regex offset="after_prematch">^User '(\S+)', </regex>
+  <order>user</order>
+</decoder>
+
+<decoder name="mgd-cmdline">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^UI_CMDLINE_READ_LINE: </prematch>
+  <regex offset="after_prematch">^User '(\S+)', </regex>
+  <order>user</order>
+</decoder>
+
+<decoder name="mgd-dblogout-event">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^UI_LOGOUT_EVENT: </prematch>
+  <regex offset="after_prematch">^User '(\S+)',  </regex>
+  <order>user</order>
+</decoder>
+
+<decoder name="mgd-logout-event">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^UI_DBASE_LOGOUT_EVENT: </prematch>
+  <regex offset="after_prematch">^User '(\S+)', </regex>
+  <order>user</order>
+</decoder>
+
+<decoder name="rtflow-session-close">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^RT_FLOW: RT_FLOW_SESSION_CLOSE: session closed idle Timeout: </prematch>
+  <regex offset="after_prematch">^ (\S+)  </regex>
+  <order>srcip,id</order>
+</decoder>
+
+<decoder name="rtflow-session-create">
+  <parent>mgd</parent>
+  <prematch offset="after_parent">^RT_FLOW: RT_FLOW_SESSION_CREATE: session created </prematch>
+  <regex offset="after_prematch">^ (\S+) </regex>
+  <order>srcip,id</order>
+</decoder>
